@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-
+import axios from 'axios';
 class App extends Component {
   constructor(props) {
     super(props);
@@ -13,28 +13,29 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch("http://localhost:3000/posts.json")
-      .then(res => res.json())
+    axios.get('http://localhost:3000/posts.json')
       .then(
-        (result) => {
+        (response) => {
           this.setState({
-            isLoaded: true,
-            items: result.posts
-          });
-        },
+            isLoaded:true,
+            items: response.data.posts
+          })
+        }
+      )
+      .catch(
         (error) => {
           this.setState({
             isLoaded: true,
-            error
-          });
+            error: error.response.data
+          })
         }
-      )
+      ) 
   }
   
   render() {
     const { error, isLoaded, items } = this.state;
     if (error) {
-      return <div>Error: {error.message}</div>;
+      return <div>Error: {error.status}, {error.error}, {error.exception}</div>;
     } else if (!isLoaded) {
       return <div>Loading...</div>;
     } else {
