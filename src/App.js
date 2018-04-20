@@ -1,55 +1,25 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import axios from 'axios';
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      error: null,
-      isLoaded: false,
-      items: []
-    };
-  }
+import { createStore, applyMiddleware } from 'redux'
+import { composeWithDevTools } from 'redux-devtools-extension';
+import { Provider } from 'react-redux'
+import thunk from 'redux-thunk'
+import rootReducer from './reducers'
+import PostsList from './components/PostsList'
+import AddPost from './components/AddPost';
 
-  componentDidMount() {
-    axios.get('http://localhost:3000/posts.json')
-      .then(
-        (response) => {
-          this.setState({
-            isLoaded:true,
-            items: response.data.posts
-          })
-        }
-      )
-      .catch(
-        (error) => {
-          this.setState({
-            isLoaded: true,
-            error: error.response.data
-          })
-        }
-      ) 
-  }
-  
-  render() {
-    const { error, isLoaded, items } = this.state;
-    if (error) {
-      return <div>Error: {error.status}, {error.error}, {error.exception}</div>;
-    } else if (!isLoaded) {
-      return <div>Loading...</div>;
-    } else {
-      return (
-        <ul>
-          {items.map(item => (
-            <li key={item.title}>
-              {item.title} {item.content}
-            </li>
-          ))}
-        </ul>
-      );
-    }
-  }
+const store = createStore(
+  rootReducer,
+  composeWithDevTools(
+    applyMiddleware(thunk)
+  )
+);
+
+const App = () => {
+  return (
+    <Provider store={store}>
+      <AddPost />
+    </Provider>
+  )
 }
 
 export default App;
