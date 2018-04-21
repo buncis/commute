@@ -38,3 +38,24 @@ export const addPost = (title, content) => (dispatch) =>
       response: response.data
     });
   });
+
+export const updatePost = (id) => (dispatch) =>
+  axios.patch(`http://localhost:3000/posts/${id}.json`, {
+    post: {
+      status: true
+    }
+  }).then(response => {
+      dispatch({
+        type: 'UPDATE_POST_SUCCESS',
+        response: response.data
+      });
+    });
+
+export const deletePost = (id) => (dispatch) =>
+  axios.delete(`http://localhost:3000/posts/${id}.json`)
+    .then(response => {
+        dispatch({
+          type: 'DELETE_POST_SUCCESS',
+          id: id
+        });
+    });

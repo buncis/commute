@@ -9,7 +9,7 @@ class PostsList extends Component {
   }
   
   render() {
-    const { isFetching, posts, errorMessage } = this.props;
+    const { isFetching, posts, errorMessage, updatePost, deletePost } = this.props;
     if (isFetching && !posts.length){
       return (<h2>LOADING</h2>);
     }
@@ -19,8 +19,9 @@ class PostsList extends Component {
     return (
       <ul>          
         {posts.map(post => (
-            <li key={post.id}>
+            <li onClick={()=>updatePost(post.id)} key={post.id}>
               {post.title} {post.content} {post.status? "udah" : "belom"}
+              <h2 onClick={()=>deletePost(post.id)}>HAPUS</h2>
             </li>
           ))}
       </ul>
