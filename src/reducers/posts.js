@@ -1,6 +1,6 @@
 const posts = (state = [], action) => {
   switch(action.type) {
-    case 'FETCH_TODOS_SUCCESS':
+    case 'FETCH_POSTS_SUCCESS':
       return action.response
     default: 
       return state;

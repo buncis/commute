@@ -1,8 +1,12 @@
 import { combineReducers } from 'redux';
 import posts from './posts';
+import isFetching from './isFetching';
+import errorMessage from './errorMessage';
 
 const rootReducers = combineReducers({
-  posts
+  posts,
+  isFetching,
+  errorMessage,
 });
 
 export default rootReducers;
