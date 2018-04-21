@@ -7,6 +7,7 @@
     "axios": "^0.18.0",
     "formik": "^0.11.11",
     "material-ui": "^1.0.0-beta.42",
+    "normalizr": "^3.2.4",
     "prop-types": "^15.6.1",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",

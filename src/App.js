@@ -7,11 +7,18 @@ import rootReducer from './reducers'
 import PostsList from './components/PostsList'
 import AddPost from './components/AddPost';
 
+const persistedState = {
+  posts: [{
+    id: 0,
+    title: 'Welcome Back!',
+    content: 'false'
+  }]
+}
 const store = createStore(
-  rootReducer,
+  rootReducer, persistedState,
   composeWithDevTools(
     applyMiddleware(thunk)
-  )
+  ), 
 );
 
 const App = () => {
