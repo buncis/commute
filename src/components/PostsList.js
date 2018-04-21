@@ -20,7 +20,7 @@ class PostsList extends Component {
       <ul>          
         {posts.map(post => (
             <li key={post.id}>
-              {post.title} {post.content}
+              {post.title} {post.content} {post.status? "udah" : "belom"}
             </li>
           ))}
       </ul>

@@ -4,7 +4,8 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer from './reducers';
 import { Provider } from 'react-redux';
-import PostsList from './components/PostsList'
+import AddPost from './components/AddPost';
+import PostsList from './components/PostsList';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 import registerServiceWorker from './registerServiceWorker';
@@ -18,7 +19,10 @@ const store = createStore(
 
 ReactDOM.render(
   <Provider store={store}>
-    <PostsList />
+    <div>
+      <AddPost />
+      <PostsList />
+    </div>
   </Provider>
   , document.getElementById('root'));
 registerServiceWorker();

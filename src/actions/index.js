@@ -25,3 +25,16 @@ export const fetchPosts = () => (dispatch, getState) => {
     }
   );
 };
+
+export const addPost = (title, content) => (dispatch) =>
+  axios.post('http://localhost:3000/posts.json', {
+    post: {
+      title: title,
+      content: content
+    }
+  }).then(response => {
+    dispatch({
+      type: 'ADD_POST_SUCCESS',
+      response: response.data
+    });
+  });
