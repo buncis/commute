@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
+import { getErrorMessage, getIsFetching } from '../reducers';
 
 class PostsList extends Component {
   componentDidMount() { 
@@ -8,9 +9,12 @@ class PostsList extends Component {
   }
   
   render() {
-    const { posts } = this.props;
-    if (!posts.length){
-      return (<h2>LOADING</h2>)
+    const { isFetching, posts, errorMessage } = this.props;
+    if (isFetching && !posts.length){
+      return (<h2>LOADING</h2>);
+    }
+    if (errorMessage && !posts.length) {
+      return (<h2>{errorMessage}</h2>);
     }
     return (
       <ul>          
@@ -27,6 +31,8 @@ class PostsList extends Component {
 const mapStateToProps = (state) => {
   return {
     posts: state.posts,
+    errorMessage: getErrorMessage(state),
+    isFetching: getIsFetching(state),
   };
 };
 

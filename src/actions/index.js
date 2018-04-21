@@ -1,7 +1,8 @@
 import axios from 'axios';
+import { getIsFetching } from '../reducers';
 
 export const fetchPosts = (dispatch, getState) => {
-  
+
   return dispatch => {
     dispatch({
       type: 'FETCH_POSTS_REQUEST',

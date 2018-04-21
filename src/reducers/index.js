@@ -10,3 +10,6 @@ const rootReducers = combineReducers({
 });
 
 export default rootReducers;
+
+export const getIsFetching = (state) => state.isFetching;
+export const getErrorMessage = (state) => state.errorMessage;
