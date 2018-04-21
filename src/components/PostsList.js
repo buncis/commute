@@ -1,54 +1,38 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import { connect } from 'react-redux';
+import * as actions from '../actions';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      error: null,
-      isLoaded: false,
-      items: []
-    };
-  }
-
-  componentDidMount() {
-    axios.get('http://localhost:3000/posts.json')
-      .then(
-        (response) => {
-          this.setState({
-            isLoaded:true,
-            items: response.data.posts
-          })
-        }
-      )
-      .catch(
-        (error) => {
-          this.setState({
-            isLoaded: true,
-            error: error.response.data
-          })
-        }
-      ) 
+class PostsList extends Component {
+  componentDidMount() { 
+    this.props.fetchPosts();
   }
   
   render() {
-    const { error, isLoaded, items } = this.state;
-    if (error) {
-      return <div>Error: {error.status}, {error.error}, {error.exception}</div>;
-    } else if (!isLoaded) {
-      return <div>Loading...</div>;
-    } else {
-      return (
-        <ul>
-          {items.map(item => (
-            <li key={item.title}>
-              {item.title} {item.content}
+    const { posts } = this.props;
+    if (!posts.length){
+      return (<h2>LOADING</h2>)
+    }
+    return (
+      <ul>          
+        {posts.map(post => (
+            <li key={post.id}>
+              {post.title} {post.content}
             </li>
           ))}
-        </ul>
-      );
-    }
+      </ul>
+    );
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    posts: state.posts,
+  };
+};
+
+PostsList = connect(
+  mapStateToProps,
+  actions
+)((PostsList));
+
+export default PostsList;
